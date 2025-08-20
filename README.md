@@ -27,7 +27,8 @@ O serviço utiliza a **Gemini AI** da Google para analisar o conteúdo das mensa
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/analiza-leads.git
+git clone https://github.com/Micalli/analiza-leads.git
+
 cd analyze-leads-gemini
 ```
 ## Instale as dependências:
