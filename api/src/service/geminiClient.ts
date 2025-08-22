@@ -5,6 +5,11 @@ import {
 } from "@google/generative-ai";
 import { GroupChatI } from "../types";
 
+interface ResponseGemini {
+        name: string;
+        classification: string;
+}
+
 export class GeminiAIService {
   private genAI: GoogleGenerativeAI;
   private model: GenerativeModel;
@@ -22,7 +27,7 @@ export class GeminiAIService {
     });
   }
 
-  async getResponse(messages: GroupChatI[]): Promise<string> {
+  async getResponse(messages: GroupChatI[]): Promise<ResponseGemini[] | string> {
     try {
       if (!this.chat) return "IA ainda está carregando.";
 
@@ -30,9 +35,9 @@ export class GeminiAIService {
 Você é um especialista em análise de leads e mensagens comerciais no LinkedIn. 
 Sua tarefa é analisar os contatos abaixo e classificar cada um em uma das seguintes categorias:
 
-1. Sem Interesse – A pessoa não demonstra nenhum potencial de negócio. Exemplo: recusas diretas, mensagens automáticas, conteúdo irrelevante.
-2. Lead Frio – Existe algum interesse, mas ainda distante ou pouco claro. Exemplo: respostas vagas, curiosidade inicial, solicitações de mais informações sem urgência.
-3. Oportunidade de Negócio – Há interesse concreto e direto em avançar. Exemplo: solicitação de proposta, pedido de reunião, demonstração clara de necessidade do serviço.
+1. Cold Lead – A pessoa não demonstra nenhum potencial de negócio. Exemplo: recusas diretas, mensagens automáticas, conteúdo irrelevante.
+2. Warm Lead – Existe algum interesse, mas ainda distante ou pouco claro. Exemplo: respostas vagas, curiosidade inicial, solicitações de mais informações sem urgência.
+3. Hot Lead  – Há interesse concreto e direto em avançar. Exemplo: solicitação de proposta, pedido de reunião, demonstração clara de necessidade do serviço.
 
 ### Dados de entrada
 Você receberá um **array JSON** onde cada item representa uma pessoa com suas mensagens agrupadas.  
@@ -40,11 +45,11 @@ Você receberá um **array JSON** onde cada item representa uma pessoa com suas 
 ### Instruções obrigatórias
 - Analise **todas as mensagens de cada pessoa em conjunto** antes de definir a classificação.
 - Cada pessoa deve receber **apenas uma única classificação**.
-- Use **exatamente um dos termos**: "Sem Interesse", "Lead Frio" ou "Oportunidade de Negócio".
+- Use **exatamente um dos termos**: "Cold Lead", "Warm Lead" ou "Hot Lead".
 - Retorne **um único array JSON válido**, onde cada elemento siga este formato:
   {
     "name": "valor_nome",
-    "classification": "Sem Interesse | Lead Frio | Oportunidade de Negócio"
+    "classification": "Cold Lead | Warm Lead | Hot Lead"
   }
 - Não inclua blocos de código, markdown, comentários ou explicações adicionais.
 - A saída deve ser sempre um JSON estritamente válido.
@@ -53,7 +58,7 @@ Você receberá um **array JSON** onde cada item representa uma pessoa com suas 
 [
   {
     "name": "NOME_DO_CONTATO",
-    "classification": "Lead Frio"
+    "classification": "Cold Lead"
   }
 ]
 

@@ -1,10 +1,12 @@
 import * as XLSX from "xlsx";
+import { v4 as uuidv4 } from "uuid";
 import { GroupChatI, ChatsI } from "../types";
 import { clearMessage } from "../utils/clearMessage";
 import { Request, Response } from "express";
-import { removeFilesInFolder } from '../utils/removeFilesInFolder';
-import { GeminiAIService } from '../service/geminiClient';
-import { validateFormatFile } from '../utils/validateFormatFile';
+import { removeFilesInFolder } from "../utils/removeFilesInFolder";
+import { GeminiAIService } from "../service/geminiClient";
+import { validateFormatFile } from "../utils/validateFormatFile";
+import { leadStore } from "../store/analysisLead";
 
 export async function uploadFile(req: Request, res: Response) {
   try {
@@ -12,7 +14,7 @@ export async function uploadFile(req: Request, res: Response) {
       return res.status(400).json({ error: "Arquivo não enviado" });
     }
 
-   await validateFormatFile(req.file)
+    await validateFormatFile(req.file);
 
     const workbook = XLSX.readFile(req.file.path);
     const sheetName = workbook.SheetNames[0];
@@ -51,9 +53,20 @@ export async function uploadFile(req: Request, res: Response) {
     const result = await geminiService.getResponse(groupChat);
     removeFilesInFolder("uploads");
 
+    const analyseId = uuidv4();
+    
+    leadStore.set(analyseId, {
+      id: analyseId,
+      fileName: req.file.originalname,
+      analyzedAt: new Date().toISOString(),
+      analysis: result,
+    });
+
     return res.status(201).json(result);
   } catch (err) {
     console.error("Erro ao processar arquivo:", err);
-    return res.status(500).json({ error: err || "Erro ao processar a planilha" });
+    return res
+      .status(500)
+      .json({ error: err || "Erro ao processar a planilha" });
   }
 }
