@@ -35,17 +35,23 @@ const UploadFile = () => {
                   Arquivo selecionado: {selectedFile.name}
                 </p>
               )}
-              {selectedFile && (
-                <div className="text-gray-400 text-sm mt-6">
-                  <input
-                    value={analyzeName}
-                    onChange={onChangeAnalyzeName}
-                    placeholder="Nome da Análise"
-                    className=" w-full px-3 py-2 bg-background border border-gray-600 rounded-md text-white text-sm font-medium 
-                  focus:outline-none focus:ring-2 focus:ring-primary transition-colors
-                  hover:border-gray-400"
-                  ></input>
-                </div>
+              {selectedFile && !isLoading && (
+                <>
+                  <div className="text-gray-400 text-sm mt-6 mb-1">
+                    <input
+                      value={analyzeName}
+                      onChange={onChangeAnalyzeName}
+                      placeholder="Nome da Análise"
+                      className=" w-full px-3 py-2 bg-background border border-gray-600 rounded-md text-white text-sm font-medium 
+                    focus:outline-none focus:ring-2 focus:ring-primary transition-colors
+                    hover:border-gray-400"
+                    />
+                  </div>
+                  <span className="text-xs ml-4 font-normal text-gray-400">
+                    OBS: Se deixado em branco, o nome do arquivo será
+                    utilizado.
+                  </span>
+                </>
               )}
             </div>
 

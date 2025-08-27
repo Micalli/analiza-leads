@@ -11,8 +11,8 @@ export function uploadFileController() {
   const [analyzeName, setAnalyzeName] = useState<string>("");
 
   const { mutateAsync: uploadFile, isPending } = useMutation({
-    mutationFn: async (file: File) => {
-      return leadsService.uploadFile(file);
+    mutationFn: async ({ file, analyzeNameFile }: { file: File; analyzeNameFile?: string }) => {
+      return leadsService.uploadFile(file, analyzeNameFile);
     },
   });
 
@@ -48,7 +48,7 @@ export function uploadFileController() {
     }
 
     try {
-      await uploadFile(selectedFile);
+      await uploadFile({ file: selectedFile, analyzeNameFile: analyzeName });
 
       toast.success("Arquivo analisado.");
       navigate("/historico");

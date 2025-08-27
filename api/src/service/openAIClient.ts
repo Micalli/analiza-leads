@@ -65,7 +65,6 @@ export async function getAnalyseFromLeadMessages(messages: GroupChatI[]) {
     console.log("✅ Analise finalizada!");
 
     const json = response.choices[0].message.content;
-    console.log("🚀 ~ getAnalyseFromLeadMessages ~ json:", json)
 
     if (!json) {
       throw new Error("Failed to process meal.");
@@ -77,7 +76,7 @@ export async function getAnalyseFromLeadMessages(messages: GroupChatI[]) {
       console.log("🪙  Tokens total: ", response.usage.total_tokens);
 
       console.log(
-        "💲 Custos ≅ : ",
+        "💲 Custos aproximado ≅ ",
         calculateGpt4MiniCost(
           response.usage.prompt_tokens,
           response.usage.completion_tokens

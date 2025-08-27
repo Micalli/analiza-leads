@@ -8,7 +8,6 @@ import { validateFormatFile } from "../utils/validateFormatFile";
 import { saveAnalysisToFile } from "../database/repository/saveToFile";
 import { getAnalyseFromLeadMessages } from "../service/openAIClient";
 import fs from "fs";
-import { parse } from "csv-parse/sync";
 
 export async function uploadFile(req: Request, res: Response) {
   try {
@@ -17,45 +16,52 @@ export async function uploadFile(req: Request, res: Response) {
     }
     await validateFormatFile(req.file);
     const { analyzeName } = req.body;
+    console.log("🚀 ~ uploadFile ~ analyzeName:", analyzeName)
 
     const filePath = req.file.path;
-    const content = await fs.promises.readFile(filePath, "utf8");
+    const csvContent = await fs.promises.readFile(filePath, "utf8");
 
-    const parsedCsvFile = await parseLinkedinCsv(content);
-    const chats: ChatsI[] = parsedCsvFile
-      .map((item: any) => {
-        if (
-          item["FROM"] === "LinkedIn Member" ||
-          item["FROM"] === "LinkedIn Talent Solutions" ||
-          item["FROM"] === "Sponsored Conversation" ||
-          item["FROM"] === "Pedro Esquerdo"
-        ) {
-          return;
-        }
-        return {
-          id: item["CONVERSATION ID"]?.trim() || "",
-          nome: item["FROM"]?.trim() || "",
-          linkedinUrl: item["SENDER PROFILE URL"]?.trim() || "",
-          mensagem: clearMessage(item["CONTENT"]?.trim() || ""),
-        };
-      })
-      .filter((item: any): item is ChatsI => Boolean(item)); // remove undefined e força o tipo
+    // const workbook = XLSX.read(csvContent, { type: "string" });
+    // const sheetName = workbook.SheetNames[0];
+    // const worksheet = workbook.Sheets[sheetName];
+    // const data = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+    // console.log(`📈 Parse de ${data.length} linhas.`);
 
-    const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
-      if (!acc[msg.nome]) {
-        acc[msg.nome] = {
-          name: msg.nome,
-          linkedinUrl: msg.linkedinUrl,
-          messages: [],
-        };
-      }
+    // const chats: ChatsI[] = (data as any[])
+    //   .filter((item) => {
+    //     return ![
+    //       "LinkedIn Member",
+    //       "LinkedIn Talent Solutions",
+    //       "Sponsored Conversation",
+    //       "Pedro Esquerdo",
+    //     ].includes(item.FROM);
+    //   })
+    //   .map((row) => ({
+    //     id: row["CONVERSATION ID"],
+    //     nome: row["FROM"],
+    //     mensagem: clearMessage(row["CONTENT"]),
+    //     linkedinUrl:
+    //       row["RECIPIENT PROFILE URLS"] ===
+    //       "https://www.linkedin.com/in/pedro-esquerdo"
+    //         ? row["SENDER PROFILE URL"]
+    //         : row["RECIPIENT PROFILE URLS"],
+    //   }));
 
-      acc[msg.nome].messages.push({ message: msg.mensagem });
+    // const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
+    //   if (!acc[msg.nome]) {
+    //     acc[msg.nome] = {
+    //       name: msg.nome,
+    //       linkedinUrl: msg.linkedinUrl,
+    //       messages: [],
+    //     };
+    //   }
 
-      return acc;
-    }, {});
-    const groupChat: GroupChatI[] = Object.values(agrupadoMap);
+    //   acc[msg.nome].messages.push({ message: msg.mensagem });
 
+    //   return acc;
+    // }, {});
+    const groupChat = await parseFileToJson(csvContent);
+    
     const result = await getAnalyseFromLeadMessages(groupChat);
 
     const analyseId = uuidv4();
@@ -67,7 +73,7 @@ export async function uploadFile(req: Request, res: Response) {
     };
 
     await saveAnalysisToFile(analyseId, newAnalysis);
-    return res.status(201).json(parsedCsvFile);
+    return res.status(201).json(result);
   } catch (err) {
     console.error("Erro ao processar arquivo:", err);
     return res
@@ -78,64 +84,47 @@ export async function uploadFile(req: Request, res: Response) {
   }
 }
 
-async function parseLinkedinCsv(csvContent: string) {
-  const records = parse(csvContent, { columns: true, skip_empty_lines: true });
-  return records.map((row: any) => ({
-    "CONVERSATION ID": row["CONVERSATION ID"],
-    "CONVERSATION TITLE": row["CONVERSATION TITLE"],
-    FROM: row["FROM"],
-    "SENDER PROFILE URL": row["SENDER PROFILE URL"] || null,
-    TO: row["TO"],
-    "RECIPIENT PROFILE URLS": row["RECIPIENT PROFILE URLS"],
-    DATE: row["DATE"],
-    SUBJECT: row["SUBJECT"],
-    CONTENT: row["CONTENT"],
-    FOLDER: row["FOLDER"],
-    "IS MESSAGE DRAFT": row["IS MESSAGE DRAFT"],
-  }));
+async function parseFileToJson(csvContent: string): Promise<GroupChatI[]> {
+  const workbook = XLSX.read(csvContent, { type: "string" });
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+  const data = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+  console.log(`📈 Parse de ${data.length} linhas.`);
+
+  const chats: ChatsI[] = (data as any[])
+    .filter((item) => {
+      return ![
+        "LinkedIn Member",
+        "LinkedIn Talent Solutions",
+        "Sponsored Conversation",
+        "Pedro Esquerdo",
+      ].includes(item.FROM);
+    })
+    .map((row) => ({
+      id: row["CONVERSATION ID"],
+      nome: row["FROM"],
+      mensagem: clearMessage(row["CONTENT"]),
+      linkedinUrl:
+        row["RECIPIENT PROFILE URLS"] ===
+        "https://www.linkedin.com/in/pedro-esquerdo"
+          ? row["SENDER PROFILE URL"]
+          : row["RECIPIENT PROFILE URLS"],
+    }));
+
+  const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
+    if (!acc[msg.nome]) {
+      acc[msg.nome] = {
+        name: msg.nome,
+        linkedinUrl: msg.linkedinUrl,
+        messages: [],
+      };
+    }
+
+    acc[msg.nome].messages.push({ message: msg.mensagem });
+
+    return acc;
+  }, {});
+  const groupChat: GroupChatI[] = Object.values(agrupadoMap);
+
+  return groupChat;
 }
-
-// const EXPECTED_COLUMNS = 11;
-
-// async function cleanAndParseCsv(filePath: string) {
-//   let raw = await fs.promises.readFile(filePath, "utf8");
-
-//   // 🔹 Garante quebra após cada INBOX,No (LinkedIn usa isso como final de registro)
-//   raw = raw.replace(/,INBOX,No\s*/g, ",INBOX,No\n");
-
-//   // 🔹 Divide em linhas
-//   const lines = raw.split("\n").filter((l) => l.trim() !== "");
-
-//   const fixedLines: string[] = [];
-//   let buffer = "";
-
-//   for (const line of lines) {
-//     const current = buffer ? buffer + line : line;
-
-//     // Conta colunas (simples: split por vírgula, mas poderia ser mais robusto com regex)
-//     const columnCount = current.split(",").length;
-
-//     if (columnCount === EXPECTED_COLUMNS) {
-//       fixedLines.push(current);
-//       buffer = ""; // limpa buffer
-//     } else {
-//       // ainda não chegou em 11 colunas → acumula
-//       buffer = current + ",";
-//     }
-//   }
-
-//   // sobrescreve com linhas corrigidas
-//   await fs.promises.writeFile(filePath, fixedLines.join("\n"), "utf8");
-
-//   // 🔹 Agora parseia de fato
-//   const rows: any[] = [];
-//   await new Promise<void>((resolve, reject) => {
-//     fs.createReadStream(filePath)
-//       .pipe(parse({ headers: true, ignoreEmpty: true }))
-//       .on("error", reject)
-//       .on("data", (row) => rows.push(row))
-//       .on("end", () => resolve());
-//   });
-
-//   return rows;
-// }
