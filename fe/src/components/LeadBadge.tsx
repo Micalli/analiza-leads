@@ -1,41 +1,45 @@
 // components/LeadBadge.tsx
 import React from "react";
 
-type LeadClassification = "hot lead" | "warm lead" | "cold lead" | string;
-
 interface LeadBadgeProps {
-  classification: LeadClassification;
+  score: number;
 }
 
-const CLASSIFICATION_CONFIG: Record<
-  string,
-  { color: string; text: string; icon: string }
-> = {
-  "Hot Lead": {
-    color: "bg-red-500 text-white",
-    text: "Lead Quente",
-    icon: "🔥",
-  },
-  "Warm Lead": {
-    color: "bg-yellow-400 text-black",
-    text: "Lead Aquecido",
-    icon: "⚡",
-  },
-  "Cold Lead": {
-    color: "bg-blue-500 text-white",
-    text: "Lead Frio",
-    icon: "❄️",
-  },
-  default: {
-    color: "bg-gray-500 text-white",
-    text: "Não Classificado",
-    icon: "❓",
-  },
+type ClassificationConfig = {
+  color: string;
+  icon: string;
 };
 
-export const LeadBadge: React.FC<LeadBadgeProps> = ({ classification }) => {
-  const { color, text, icon } =
-    CLASSIFICATION_CONFIG[classification] || CLASSIFICATION_CONFIG.default;
+function getClassificationConfig(score: number): ClassificationConfig {
+  if (score >= 61) {
+    return {
+      color: "bg-red-500 text-white",
+      icon: "🔥",
+    };
+  }
+
+  if (score >= 31) {
+    return {
+      color: "bg-yellow-400 text-black",
+      icon: "⚡",
+    };
+  }
+
+  if (score >= 0) {
+    return {
+      color: "bg-blue-500 text-white",
+      icon: "❄️",
+    };
+  }
+
+  return {
+    color: "bg-gray-500 text-white",
+    icon: "❓",
+  };
+}
+
+export const LeadBadge = ({ score }: LeadBadgeProps) => {
+  const { color, icon } = getClassificationConfig(score);
 
   return (
     <span
@@ -47,7 +51,7 @@ export const LeadBadge: React.FC<LeadBadgeProps> = ({ classification }) => {
         >
           {icon}
         </span>
-        <span className={`text-sm ${color}`}>{text}</span>
+        <span className={`text-sm ${color}`}>{score}</span>
       </div>
     </span>
   );

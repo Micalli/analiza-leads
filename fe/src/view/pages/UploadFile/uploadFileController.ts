@@ -8,6 +8,7 @@ export function uploadFileController() {
   const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [analyzeName, setAnalyzeName] = useState<string>("");
 
   const { mutateAsync: uploadFile, isPending } = useMutation({
     mutationFn: async (file: File) => {
@@ -57,5 +58,16 @@ export function uploadFileController() {
     }
   };
 
-  return { isLoading: isPending, selectedFile, handleSubmit, handleFileChange };
+  const onChangeAnalyzeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAnalyzeName(event.target.value);
+  };
+
+  return {
+    isLoading: isPending,
+    selectedFile,
+    analyzeName,
+    handleSubmit,
+    handleFileChange,
+    onChangeAnalyzeName,
+  };
 }

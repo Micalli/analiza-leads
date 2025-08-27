@@ -1,12 +1,21 @@
 import { Button } from "../../../components/ui/Button";
-import { HistorySkeleton } from '../../../components/ui/HistorySkeleton';
+import { HistorySkeleton } from "../../../components/ui/HistorySkeleton";
 import type { AnalysisItem } from "../../../types";
 import { formatDate } from "../../../utils/formatDate";
+import { ConfirmDeleteAnalyze } from '../../modals/ConfirmDeleteAnalyze';
 import { historyListController } from "./historyListController";
-
+import { Trash } from "lucide-react";
 const HistoryList = () => {
-  const { analysisHistory, isLoading, handleViewDetails } =
-    historyListController();
+  const {
+    analysisHistory,
+    isLoading,
+    handleViewDetails,
+    handleDeleteAnalyze,
+    deletedAnalyzeId,
+    handleDeleteAnalyzeConfirmaton,
+    isDeleteAnalyzeModalOpen,
+    closeDeleteAnalyzeModal,
+  } = historyListController();
 
   return (
     <div className="min-h-screen bg-background pt-24 px-4">
@@ -30,9 +39,17 @@ const HistoryList = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white mb-2 truncate">
-                      {item.fileName}
-                    </h3>
+                    <div className="flex justify-between">
+                      <h3 className="text-lg font-semibold text-white mb-2 truncate">
+                        {item.fileName}
+                      </h3>
+                      <button
+                        onClick={() => handleDeleteAnalyzeConfirmaton(item.id)}
+                        className="cursor-pointer hover:text-red-700 transition-all"
+                      >
+                        <Trash />
+                      </button>
+                    </div>
                     <div className="space-y-2 text-sm text-gray-300">
                       <div className="flex items-center">
                         <span className="text-gray-400 mr-2">📅</span>
@@ -66,6 +83,12 @@ const HistoryList = () => {
           </div>
         )}
       </div>
+      <ConfirmDeleteAnalyze
+        onClose={closeDeleteAnalyzeModal}
+        isOpen={isDeleteAnalyzeModalOpen}
+        analyzeId={deletedAnalyzeId}
+        onConfirm={handleDeleteAnalyze}
+      />
     </div>
   );
 };

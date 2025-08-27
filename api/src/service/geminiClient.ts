@@ -4,10 +4,12 @@ import {
   ChatSession,
 } from "@google/generative-ai";
 import { GroupChatI } from "../types";
+import { formatCurrency } from '../utils/formatCurrency';
 
 interface ResponseGemini {
-        name: string;
-        classification: string;
+  name: string;
+  score: string;
+  title: string;
 }
 
 export class GeminiAIService {
@@ -27,30 +29,37 @@ export class GeminiAIService {
     });
   }
 
-  async getResponse(messages: GroupChatI[]): Promise<ResponseGemini[] | string> {
+  async getResponse(
+    messages: GroupChatI[]
+  ): Promise<ResponseGemini[] | string> {
     try {
       if (!this.chat) return "IA ainda está carregando.";
+      this.analyseMessagesGemini(messages);
 
       const prompt = `
-Você é um especialista em análise de leads e mensagens comerciais no LinkedIn. 
-Sua tarefa é analisar os contatos abaixo e classificar cada um em uma das seguintes categorias:
+Você é um especialista em análise de leads e mensagens comerciais no LinkedIn.
+Sua tarefa é analisar os contatos abaixo e atribuir a cada um um score de 0 a 100, representando o nível de interesse ou potencial de negócio:
 
-1. Cold Lead – A pessoa não demonstra nenhum potencial de negócio. Exemplo: recusas diretas, mensagens automáticas, conteúdo irrelevante.
-2. Warm Lead – Existe algum interesse, mas ainda distante ou pouco claro. Exemplo: respostas vagas, curiosidade inicial, solicitações de mais informações sem urgência.
-3. Hot Lead  – Há interesse concreto e direto em avançar. Exemplo: solicitação de proposta, pedido de reunião, demonstração clara de necessidade do serviço.
+- 0 a 30 → Frio (baixa chance de negócio).
+- 31 a 70 → Morno (interesse moderado ou pouco claro).
+- 71 a 100 → Quente (alto interesse, intenção de avançar).
+- Um título curto e objetivo (máximo 6 palavras) que resuma o tema principal da conversa.
 
 ### Dados de entrada
-Você receberá um **array JSON** onde cada item representa uma pessoa com suas mensagens agrupadas.  
+
+Você receberá um array JSON onde cada item representa uma pessoa com suas mensagens agrupadas.
 
 ### Instruções obrigatórias
-- Analise **todas as mensagens de cada pessoa em conjunto** antes de definir a classificação.
-- Cada pessoa deve receber **apenas uma única classificação**.
-- Use **exatamente um dos termos**: "Cold Lead", "Warm Lead" ou "Hot Lead".
-- Retorne **um único array JSON válido**, onde cada elemento siga este formato:
-  {
-    "name": "valor_nome",
-    "classification": "Cold Lead | Warm Lead | Hot Lead"
-  }
+
+- Analise todas as mensagens de cada pessoa em conjunto antes de definir o score.
+- Cada pessoa deve receber apenas um score numérico entre 0 e 100.
+- Gere também um **título resumido (máximo 6 palavras)** para a conversa.  
+- Retorne um único array JSON válido, onde cada elemento siga este formato:
+{
+  "name": "valor_nome",
+  "score": 0-100
+  "title": "Resumo curto da conversa"
+}
 - Não inclua blocos de código, markdown, comentários ou explicações adicionais.
 - A saída deve ser sempre um JSON estritamente válido.
 
@@ -58,19 +67,18 @@ Você receberá um **array JSON** onde cada item representa uma pessoa com suas 
 [
   {
     "name": "NOME_DO_CONTATO",
-    "classification": "Cold Lead"
+    "score": 85
+    "title": "Pedido de proposta comercial"
   }
 ]
 
 ### Agora classifique os contatos abaixo:
 ${JSON.stringify(messages, null, 2)}
-
 `;
-
       const result = await this.chat.sendMessage(prompt);
-      const response = await result.response;
+      const response = result.response;
 
-      const cleanText = await response
+      const cleanText = response
         .text()
         .replace(/```(json)?/g, "")
         .trim();
@@ -80,5 +88,87 @@ ${JSON.stringify(messages, null, 2)}
       console.error("Erro GeminiAIService:", error);
       return "Erro ao processar resposta.";
     }
+  }
+
+  async analyseMessagesGemini(messages: GroupChatI[]) {
+    const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `
+Você é um especialista em análise de leads e mensagens comerciais no LinkedIn.
+Sua tarefa é analisar os contatos abaixo e atribuir a cada um um score de 0 a 100, representando o nível de interesse ou potencial de negócio:
+
+0 a 30 → Frio (baixa chance de negócio).
+
+31 a 70 → Morno (interesse moderado ou pouco claro).
+
+71 a 100 → Quente (alto interesse, intenção de avançar).
+Um título curto e objetivo (máximo 6 palavras) que resuma o tema principal da conversa.
+
+### Dados de entrada
+
+Você receberá um array JSON onde cada item representa uma pessoa com suas mensagens agrupadas.
+
+### Instruções obrigatórias
+
+Analise todas as mensagens de cada pessoa em conjunto antes de definir o score.
+
+Cada pessoa deve receber apenas um score numérico entre 0 e 100.
+
+Retorne um único array JSON válido, onde cada elemento siga este formato:
+{
+  "name": "valor_nome",
+  "score": 0-100
+  "title": "Resumo curto da conversa"
+}
+- Não inclua blocos de código, markdown, comentários ou explicações adicionais.
+- A saída deve ser sempre um JSON estritamente válido.
+
+### Modelo de saída (exemplo de formato, não copie os dados):
+[
+  {
+    "name": "NOME_DO_CONTATO",
+    "score": 85
+    "title": "Pedido de proposta comercial"
+  }
+]
+
+### Agora classifique os contatos abaixo:
+${JSON.stringify(messages, null, 2)}
+
+`;
+
+    const result = await model.generateContent(prompt);
+    if (result.response.usageMetadata) {
+      const inputTokens = result.response.usageMetadata.promptTokenCount;
+      const outputTokens = result.response.usageMetadata.candidatesTokenCount;
+      console.log(
+        "🪙  Tokens prompt:",
+        result.response.usageMetadata.promptTokenCount
+      );
+      console.log(
+        "🪙  Tokens resposta:",
+        result.response.usageMetadata.candidatesTokenCount
+      );
+      console.log(
+        "🪙  Tokens total:",
+        result.response.usageMetadata.totalTokenCount
+      );
+
+      const inputCostPerToken = 0.000000075; // USD
+      const outputCostPerToken = 0.0000003; // USD
+
+      const inputCost = inputTokens * inputCostPerToken;
+      const outputCost = outputTokens * outputCostPerToken;
+
+      console.log("💲  Custo do Input:", formatCurrency(inputCost));
+      console.log("💲  Custo da Resposta:", formatCurrency(outputCost));
+      console.log(
+        "💲  Custo da Total:",
+        formatCurrency(outputCost + inputCost)
+      );
+
+    }
+
+    return result.response.text();
   }
 }

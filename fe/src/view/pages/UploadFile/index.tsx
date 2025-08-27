@@ -2,8 +2,14 @@ import { Button } from "../../../components/ui/Button";
 import { uploadFileController } from "./uploadFileController";
 
 const UploadFile = () => {
-  const { isLoading, handleSubmit, handleFileChange, selectedFile } =
-    uploadFileController();
+  const {
+    isLoading,
+    handleSubmit,
+    handleFileChange,
+    selectedFile,
+    analyzeName,
+    onChangeAnalyzeName,
+  } = uploadFileController();
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 pt-24">
@@ -29,9 +35,25 @@ const UploadFile = () => {
                   Arquivo selecionado: {selectedFile.name}
                 </p>
               )}
+              {selectedFile && (
+                <div className="text-gray-400 text-sm mt-6">
+                  <input
+                    value={analyzeName}
+                    onChange={onChangeAnalyzeName}
+                    placeholder="Nome da Análise"
+                    className=" w-full px-3 py-2 bg-background border border-gray-600 rounded-md text-white text-sm font-medium 
+                  focus:outline-none focus:ring-2 focus:ring-primary transition-colors
+                  hover:border-gray-400"
+                  ></input>
+                </div>
+              )}
             </div>
 
-            <Button type="submit" disabled={!selectedFile || isLoading} isLoading={isLoading}>
+            <Button
+              type="submit"
+              disabled={!selectedFile || isLoading}
+              isLoading={isLoading}
+            >
               Enviar Arquivo
             </Button>
           </form>

@@ -3,20 +3,64 @@ import { useAnalyseDetailsController } from "./useAnalyseDetailsController";
 import { Spinner } from "../../../components/ui/Spinner";
 import { formatDate } from "../../../utils/formatDate";
 import { Button } from "../../../components/ui/Button";
+import { useEffect } from "react";
 
 interface LeadClassification {
   name: string;
   classification: "Hot Lead" | "Warm Lead" | "Cold Lead";
+  score: number;
+  title: string;
+  linkedinUrl: string;
 }
 
-export function AnalyseDetais() {
-  const { data, isLoading, handleBackToHistory } =
-    useAnalyseDetailsController();
+const optionsFilter = [
+  {
+    value: "",
+    label: "Todos",
+  },
+  {
+    value: "cold",
+    label: "Cold Lead",
+  },
+  {
+    value: "warm",
+    label: "Warm Lead",
+  },
+  {
+    value: "hot",
+    label: "Hot Lead",
+  },
+];
 
+export function AnalyseDetais() {
+  const {
+    data,
+    isLoading,
+    handleBackToHistory,
+    filterTypeLead,
+    handleChangeFilterTypeLead,
+  } = useAnalyseDetailsController();
+
+  const filterBy = data?.analysis.filter((analyse) => {
+    if (!filterTypeLead) return true; // se não tiver filtro, retorna todos
+
+    if (filterTypeLead === "cold") {
+      return analyse.score >= 0 && analyse.score <= 30;
+    }
+    if (filterTypeLead === "warm") {
+      return analyse.score >= 31 && analyse.score <= 60;
+    }
+    if (filterTypeLead === "hot") {
+      return analyse.score >= 61 && analyse.score <= 100;
+    }
+
+    return true;
+  });
+  useEffect(() => {}, [filterTypeLead]);
   return (
     <div className="min-h-screen bg-background pt-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        {data && data.analysis.length > 0 && !isLoading && (
+        {data && data.analysis.length > 0 && filterBy && !isLoading && (
           <>
             {/* Header da página */}
 
@@ -45,8 +89,7 @@ export function AnalyseDetais() {
                 <div className="text-2xl font-bold text-white">
                   {
                     data?.analysis.filter(
-                      (lead: LeadClassification) =>
-                        lead.classification === "Hot Lead"
+                      (lead: LeadClassification) => lead.score >= 61
                     ).length
                   }
                 </div>
@@ -59,7 +102,7 @@ export function AnalyseDetais() {
                   {
                     data?.analysis.filter(
                       (lead: LeadClassification) =>
-                        lead.classification === "Warm Lead"
+                        lead.score >= 31 && lead.score <= 60
                     ).length
                   }
                 </div>
@@ -71,8 +114,7 @@ export function AnalyseDetais() {
                 <div className="text-2xl font-bold text-white">
                   {
                     data?.analysis.filter(
-                      (lead: LeadClassification) =>
-                        lead.classification === "Cold Lead"
+                      (lead: LeadClassification) => lead.score <= 30
                     ).length
                   }
                 </div>
@@ -82,13 +124,34 @@ export function AnalyseDetais() {
 
             {/* Lista de leads */}
             <div className="bg-header rounded-lg shadow-lg overflow-hidden ">
-              <div className="px-6 py-4 border-b border-gray-700">
-                <h2 className="text-xl font-semibold text-white">
-                  Classificação dos Leads
-                </h2>
-                <p className="text-gray-300 text-sm">
-                  Resultado da análise automática realizada pelo sistema
-                </p>
+              <div className="flex flex-col sm:flex-row justify-between px-6 py-4 border-b border-gray-700">
+                <div>
+                  <h2 className="text-xl font-semibold text-white">
+                    Classificação dos Leads
+                  </h2>
+                  <p className="text-gray-300 text-sm">
+                    Resultado da análise automática realizada pelo sistema
+                  </p>
+                </div>
+                <div className='sm:mt-0 mt-6'>
+                  <select
+                    value={filterTypeLead} // <- controla pelo estado
+                    onChange={(e) => handleChangeFilterTypeLead(e.target.value)}
+                    className="cursor-pointer w-full px-3 py-2 bg-background border border-gray-600 rounded-md text-white text-sm font-medium 
+             focus:outline-none focus:ring-2 focus:ring-primary transition-colors
+             hover:border-gray-400"
+                  >
+                    {optionsFilter.map((option) => (
+                      <option
+                        key={option.value}
+                        value={option.value}
+                        className=""
+                      >
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="overflow-x-auto">
@@ -99,28 +162,34 @@ export function AnalyseDetais() {
                         Nome
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                        Classificação
+                        Descrição da conversa
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        Score
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
-                    {data?.analysis.map(
-                      (lead: LeadClassification, index: number) => (
-                        <tr
-                          key={index}
-                          className="hover:bg-gray-700 transition-colors duration-150"
-                        >
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-white">
+                    {filterBy.map((lead: LeadClassification, index: number) => (
+                      <tr
+                        key={index}
+                        className="hover:bg-gray-700 transition-colors duration-150"
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-white">
+                            <a href={lead.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
                               {lead.name}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <LeadBadge classification={lead.classification} />
-                          </td>
-                        </tr>
-                      )
-                    )}
+                              </a>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {lead.title}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <LeadBadge score={lead.score} />
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

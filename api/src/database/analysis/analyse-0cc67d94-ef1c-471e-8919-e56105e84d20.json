@@ -1,0 +1,751 @@
+{
+  "id": "0cc67d94-ef1c-471e-8919-e56105e84d20",
+  "fileName": "messages.csv",
+  "analyzedAt": "2025-08-26T16:10:40.304Z",
+  "analysis": [
+    {
+      "name": "Lilian Grumbach",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/liliangrumbach",
+      "title": "Sem dados para compartilhar"
+    },
+    {
+      "name": "Nathalia Lopes",
+      "score": 20,
+      "linkedinUrl": "https://www.linkedin.com/in/nathalia-lopes-cunha",
+      "title": "Mensagem curta e vaga"
+    },
+    {
+      "name": "Maisa Alves de Souza",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/maisaalvessouza",
+      "title": "Resposta curta sem contexto"
+    },
+    {
+      "name": "Diego Souza",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/diego-souza-dev",
+      "title": "Interesse em conexão e skills dev"
+    },
+    {
+      "name": "Ícaro Torres",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/icarotorresm",
+      "title": "Candidato entusiasmado à vaga"
+    },
+    {
+      "name": "Tiago Andrade",
+      "score": 20,
+      "linkedinUrl": "https://www.linkedin.com/in/tiago-andrade-4a01ba195",
+      "title": "Confirmação convite simples"
+    },
+    {
+      "name": "Lucas Gabriel",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/lgabriel27",
+      "title": "Interesse em processo seletivo"
+    },
+    {
+      "name": "Paulo Trigo",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/paulo-roberto-trigo",
+      "title": "Candidato interessado e curricular"
+    },
+    {
+      "name": "Vitor Macedo",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/vitor-macedo-38852b214",
+      "title": "Candidato dúvida no processo"
+    },
+    {
+      "name": "Daniel Sales",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/daniel-sales-6201b42a4",
+      "title": "Interesse na vaga com experiência"
+    },
+    {
+      "name": "Luiz Guilherme",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/luiz-guilherme-800983257",
+      "title": "Apresentação detalhada de projetos"
+    },
+    {
+      "name": "William Paolieri",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/william-paolieri",
+      "title": "Abordagem para explorar sinergias"
+    },
+    {
+      "name": "David Santos",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/david-santos-1373b835a",
+      "title": "Interesse detalhado na vaga"
+    },
+    {
+      "name": "Thiago Silva",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/thiagogosilva",
+      "title": "Interesse e candidatura enviada"
+    },
+    {
+      "name": "Cassius Vinicius Barg",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/cassiusbarg",
+      "title": "Candidato motivado para estágio"
+    },
+    {
+      "name": "Thaline  Taquita",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/thaline-taquita-16843aba",
+      "title": "Sem interesse na área"
+    },
+    {
+      "name": "Priscila Roverssi",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/priscila-roverssi-529756156",
+      "title": "Interesse e envio de currículo"
+    },
+    {
+      "name": "Cintia Palma",
+      "score": 30,
+      "linkedinUrl": "https://www.linkedin.com/in/cintiamspalma",
+      "title": "Disponibilidade para conexões"
+    },
+    {
+      "name": "Micael Alves",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/micael-alves-2367b62b3",
+      "title": "Candidato entusiasmado na área"
+    },
+    {
+      "name": "Enzo Ferracini Patti",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/efpatti",
+      "title": "Perfil detalhado com projetos"
+    },
+    {
+      "name": "Everton Estudante de Ciência da Computação",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/evertoneduardodesenvolvedor",
+      "title": "Interesse em estágio front-end"
+    },
+    {
+      "name": "Celio Caruso",
+      "score": 5,
+      "linkedinUrl": "https://www.linkedin.com/in/celiocaruso",
+      "title": "Sem ligação relevante"
+    },
+    {
+      "name": "Diego Sousa",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/diego-sousa-4b2295188",
+      "title": "Transição para dev e interesse"
+    },
+    {
+      "name": "Raphael Costa",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/raphael-costa-9a6a19268",
+      "title": "Interesse e envio de currículo"
+    },
+    {
+      "name": "Alessandra Trigo",
+      "score": 20,
+      "linkedinUrl": "https://www.linkedin.com/in/alessandra-trigo",
+      "title": "Interação pessoal leve"
+    },
+    {
+      "name": "Marcus Vinnicius",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/marcus-vinnicius-524aa1206",
+      "title": "Interesse alinhado ao perfil"
+    },
+    {
+      "name": "Iran Lourenço",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/iran-dev",
+      "title": "Buscando estágio e próximo passo"
+    },
+    {
+      "name": "Elaine Cavalheiro",
+      "score": 20,
+      "linkedinUrl": "https://www.linkedin.com/in/elainecavalheirolug",
+      "title": "Apresentação de comitês"
+    },
+    {
+      "name": "Tiago Araujo",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/tiago-araujo-2b5b8a89",
+      "title": "Interesse e envio de currículo"
+    },
+    {
+      "name": "Thales Bismara",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/thales-bismara-20b57a1a9",
+      "title": "Candidato dedicado em transição"
+    },
+    {
+      "name": "Olívia Fernandes Boretti",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/oliviaboretti",
+      "title": "Resposta breve e positiva"
+    },
+    {
+      "name": "Gabriel Pimenta",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/gpimenta07",
+      "title": "Interesse geral e candidatura"
+    },
+    {
+      "name": "Camila  Souza",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/camila-souza-7973a41b3",
+      "title": "Não pode compartilhar dados"
+    },
+    {
+      "name": "João Paulo Perpétuo Lima",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/joao-paulo-perpetuo-lima",
+      "title": "Mensagens vagas e genéricas"
+    },
+    {
+      "name": "Matheus Abriz",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/matheus-abriz",
+      "title": "Interesse em vaga e portfólio"
+    },
+    {
+      "name": "Diogo Queiroz",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/diogojlq",
+      "title": "Solicitação para processo seletivo"
+    },
+    {
+      "name": "Davi Rocha Pereira",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/davi-rocha-pereira-809548225",
+      "title": "Atualização de currículo enviada"
+    },
+    {
+      "name": "Lucas Felippe Silva Nascimento",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/lucas-felippe-silva-nascimento-49212b1a8",
+      "title": "Perfil alinhado e detalhado"
+    },
+    {
+      "name": "Cristian Oliveira",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/crisoliverc",
+      "title": "Interesse e alinhamento da vaga"
+    },
+    {
+      "name": "Gabriel Almeida",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/almeidagabrielferreira",
+      "title": "Interesse e disponibilidade"
+    },
+    {
+      "name": "Albert Tavares",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/albert-tavares",
+      "title": "Apresentação com experiência"
+    },
+    {
+      "name": "Samarión J.",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/samarion-junior",
+      "title": "Interesse com currículo anexo"
+    },
+    {
+      "name": "Rodrigo Ribeiro da Rocha",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/rodrigoribeirorocha",
+      "title": "Interesse em candidatura"
+    },
+    {
+      "name": "Cayo Cesar",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/cayo-cesar-305b70350",
+      "title": "Transição e interesse em vaga"
+    },
+    {
+      "name": "Matheus Araújo",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/matheusaraujotch",
+      "title": "Dúvidas sobre a vaga"
+    },
+    {
+      "name": "Rafa Caetano",
+      "score": 20,
+      "linkedinUrl": "https://www.linkedin.com/in/caetanorafael",
+      "title": "Compromisso para leitura futura"
+    },
+    {
+      "name": "Athos Caires",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/athos-caires",
+      "title": "Perfil alinhado e interesse"
+    },
+    {
+      "name": "Alexandre Zenas",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/alexandre-zenas",
+      "title": "Candidato qualificado e interessado"
+    },
+    {
+      "name": "Igor Pinheiro",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/igor-pinheiro-b383a9255",
+      "title": "Envio de currículo e interesse"
+    },
+    {
+      "name": "Narita Godoy",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/narita-godoy",
+      "title": "Interesse e alinhamento técnico"
+    },
+    {
+      "name": "Ricardo  Oliveira",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/ricardo-oliveira-192bb420a",
+      "title": "Interesse na vaga frontend"
+    },
+    {
+      "name": "Kaique Henrique",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/kaiquehenrique",
+      "title": "Interesse para troca de ideia"
+    },
+    {
+      "name": "Lorenzo Fontenelle Chaves",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/lorenzochaves",
+      "title": "Interesse em projeto e portfólio"
+    },
+    {
+      "name": "Rafael Bueno",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/rfl-bueno",
+      "title": "Interesse e experiência de mercado"
+    },
+    {
+      "name": "Kaique Novaes",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/kaique-novaes",
+      "title": "Busca primeira experiência front-end"
+    },
+    {
+      "name": "Leonardo  Mendes",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/leonardo-mendes-developer",
+      "title": "Interesse e disponibilidade para vaga"
+    },
+    {
+      "name": "Fabio Eduardo",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/fabio-eduardo-509940287",
+      "title": "Interesse com experiência acadêmica"
+    },
+    {
+      "name": "Yasmim Daiana",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/yasmim-daiana",
+      "title": "Interesse e experiência front-end"
+    },
+    {
+      "name": "Rafael  silva",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/rafael-silva-71a47222b",
+      "title": "Interesse e experiência acadêmica"
+    },
+    {
+      "name": "Yuri Fernandes Marvila",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/yuri-fernandes-marvila",
+      "title": "Interesse e disponibilidade para vaga"
+    },
+    {
+      "name": "Felipe Martins",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/felipe-martins-3250462a1",
+      "title": "Interesse e dúvida sobre processo"
+    },
+    {
+      "name": "Gustavo Rodrigues",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/gustavo-rrodrigues",
+      "title": "Pedido de conexão sem interesse"
+    },
+    {
+      "name": "Davi  Queiroz",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/davi-queiroz-santos",
+      "title": "Pedido para falar sobre vaga"
+    },
+    {
+      "name": "Paulo Sérgio de Oliveira Nascimento",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/paulo-pson",
+      "title": "Interesse e troca de ideias"
+    },
+    {
+      "name": "João Luís Pezzuol",
+      "score": 40,
+      "linkedinUrl": "https://www.linkedin.com/in/joaopezzuol",
+      "title": "Interesse genérico e acompanhamento"
+    },
+    {
+      "name": "João Victor Oliveira Leite",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/joão-victor-oliveira-leite-1b1534290",
+      "title": "Busca primeira oportunidade dev"
+    },
+    {
+      "name": "Ryan Oliveira",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/ryan-oliveira-2b54092a1",
+      "title": "Portfólio e experiência prática"
+    },
+    {
+      "name": "Victor Hugo",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/v-ictorh",
+      "title": "Saudação breve"
+    },
+    {
+      "name": "Marco Antonio de Oliveira",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/marcoaoliveira",
+      "title": "Confirmação simples"
+    },
+    {
+      "name": "Rodrigo Tavares",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/rodrigo-tavares-1b22b16",
+      "title": "Mensagem de conexão"
+    },
+    {
+      "name": "Gabriel Oliveira",
+      "score": 30,
+      "linkedinUrl": "https://www.linkedin.com/in/gabriel-oliveira-a93099335",
+      "title": "Pergunta vaga e resposta vaga"
+    },
+    {
+      "name": "Davi Moreira",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/davi-moreira-631974289",
+      "title": "Disponibilidade e interesse vaga"
+    },
+    {
+      "name": "Greg Teixeira",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/gregoriteixeira",
+      "title": "Avaliação de momento baixo"
+    },
+    {
+      "name": "Silvio Coradesqui",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/coradesqui",
+      "title": "Sugestão de café virtual"
+    },
+    {
+      "name": "Gabriel Ribeiro Nicácio Silva",
+      "score": 30,
+      "linkedinUrl": "https://www.linkedin.com/in/devgabrielribeiro",
+      "title": "Pergunta vaga interessante"
+    },
+    {
+      "name": "João Krever",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/joao-krever",
+      "title": "Interesse vaga estagio"
+    },
+    {
+      "name": "Hugo Almeida",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/hugo-almeidaa",
+      "title": "Interesse vaga com experiência"
+    },
+    {
+      "name": "Gustavo Paraíso",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/gustavoparaiso",
+      "title": "Interesse na vaga"
+    },
+    {
+      "name": "Gustavo Ferreira Vargens",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/gustavoferreiravargens",
+      "title": "Inscrição completa e interesse"
+    },
+    {
+      "name": "Cadu Aleman",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/carloseduardoaleman",
+      "title": "Mensagem de conexão"
+    },
+    {
+      "name": "Jefferson Silva Caires",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/jefferson-silva-caires-8b2429172",
+      "title": "Interesse em estudos e desenvolvimento"
+    },
+    {
+      "name": "Pedro Peixoto",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/peixotim",
+      "title": "Interesse e experiência profissional"
+    },
+    {
+      "name": "Cassio Moreira",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/cassiodf-moreira-ti",
+      "title": "Interesse clara e experiência"
+    },
+    {
+      "name": "Luiz Gustavo Lima Drilard",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/luiz-drilard",
+      "title": "Interesse e aprendizado em curso"
+    },
+    {
+      "name": "Lucas Santos",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/lucas-luke",
+      "title": "Interesse back-end e front-end"
+    },
+    {
+      "name": "Kaio França",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/kaio-frança-4a64712ba",
+      "title": "Interesse e experiência front and mobile"
+    },
+    {
+      "name": "Felipe Godoy",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/felipe-godoyy",
+      "title": "Dúvidas sobre processo seletivo"
+    },
+    {
+      "name": "Diego Henrique Melo",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/devmelo",
+      "title": "Interesse e perfil alinhado"
+    },
+    {
+      "name": "Eduardo Antonio Morandi",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/eduardo-antonio-morandi-4a6857321",
+      "title": "Interesse e portfólio"
+    },
+    {
+      "name": "Yuri Nicolichi",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/yurinicolichi",
+      "title": "Interesse e alinhamento técnico"
+    },
+    {
+      "name": "Rafael Fernandes",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/rafaelrofernandes",
+      "title": "Interesse e experiência em back-end"
+    },
+    {
+      "name": "Lucas Lima",
+      "score": 60,
+      "linkedinUrl": "https://www.linkedin.com/in/lucas-lima-6446591b7",
+      "title": "Candidato interessado e empolgado"
+    },
+    {
+      "name": "Ezequiel de Souza Rodrigues - PCD",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/ezequieldesr",
+      "title": "Interesse alinhado com stack"
+    },
+    {
+      "name": "Marcos Lauremiro Melo Silva",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/marcos-lauremiro-melo-silva",
+      "title": "Perfil detalhado com projetos"
+    },
+    {
+      "name": "Marcos Nicolau",
+      "score": 70,
+      "linkedinUrl": "https://www.linkedin.com/in/marcos-nicolau-b1837928a",
+      "title": "Interesse e aprendizado frontend"
+    },
+    {
+      "name": "Márcio Taranto Nogueira",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/mtaranto",
+      "title": "Interesse e experiência diversa"
+    },
+    {
+      "name": "Lucas Vinicius",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/lucas-vinicius-764238301",
+      "title": "Busca primeira oportunidade front-end"
+    },
+    {
+      "name": "Vitória Rezende",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/vitória-rezende-5177221b7",
+      "title": "Interesse em oportunidade inicial"
+    },
+    {
+      "name": "Luiza Sampaio Ribeiro",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/luiza-sampaio-ribeiro-07b66b25b",
+      "title": "Dúvidas sobre a vaga"
+    },
+    {
+      "name": "Luigi Ferri Maines",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/luigi-ferri-maines-498ba4361",
+      "title": "Interesse e motivação candidatar"
+    },
+    {
+      "name": "Thiago Mendes Rocha",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/thiago-mendes-rocha-73a37ab8",
+      "title": "Interesse e disponibilidade integral"
+    },
+    {
+      "name": "Matheus Schran",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/matheus-schran12",
+      "title": "Interesse e experiência candidatar"
+    },
+    {
+      "name": "Caio De Almeida Souza",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/caioasouza-argonaut",
+      "title": "Perfil detalhado e projetos"
+    },
+    {
+      "name": "Paulo Barreira",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/paulo-barreira-2a5697175",
+      "title": "Interesse e alinhamento na vaga"
+    },
+    {
+      "name": "Rodrigo Cirino",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/rodrigo-cirino",
+      "title": "Experiência aprofundada na stack"
+    },
+    {
+      "name": "Teofilo Nicolau",
+      "score": 90,
+      "linkedinUrl": "https://www.linkedin.com/in/teofilo-nicolau",
+      "title": "Candidato qualificado e engajado"
+    },
+    {
+      "name": "Tamara Morais",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/tamaramoraiss",
+      "title": "Interesse e habilidades técnicas"
+    },
+    {
+      "name": "Alex Rodrigues",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/alex-rodrigues-bb2b50342",
+      "title": "Interesse e experiência relevante"
+    },
+    {
+      "name": "Cleiton Nunes",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/cleitonnunesti",
+      "title": "Interesse básico na vaga"
+    },
+    {
+      "name": "Guilherme Soares",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/guilherme-soares-061a2120a",
+      "title": "Interesse forte com experiência"
+    },
+    {
+      "name": "Kaiky Lucas",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/kaiky-lucas-471793227",
+      "title": "Interesse e experiência ampla"
+    },
+    {
+      "name": "Thasyo Peres",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/thasyo-peres-63aa27235",
+      "title": "Interesse e experiência prática"
+    },
+    {
+      "name": "Leonardo Ribeiro",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/lribeiro2002",
+      "title": "Interesse e perfil de estudante"
+    },
+    {
+      "name": "Mauricio Chiapetta",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/mauricio-chiapetta-ba0b33251",
+      "title": "Interesse e perfil de front-end"
+    },
+    {
+      "name": "Miguel Cezar Ferreira",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/miguelcezarferreira",
+      "title": "Interesse e experiência full stack"
+    },
+    {
+      "name": "Brenda de Souza Pereira",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/brenda-de-souza-pereira27012004",
+      "title": "Interesse e experiência front-end"
+    },
+    {
+      "name": "Alberto Araújo",
+      "score": 85,
+      "linkedinUrl": "https://www.linkedin.com/in/albertoaraujoo",
+      "title": "Interesse e experiência front-end"
+    },
+    {
+      "name": "Riann De Souza",
+      "score": 75,
+      "linkedinUrl": "https://www.linkedin.com/in/riann-de-souza-3b24251b5",
+      "title": "Interesse em entrevista"
+    },
+    {
+      "name": "Gustavo Dias",
+      "score": 80,
+      "linkedinUrl": "https://www.linkedin.com/in/gustavo-huguenin-dias",
+      "title": "Envio de currículo e interesse"
+    },
+    {
+      "name": "Higor Godoy Venâncio",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/higor-godoy-venâncio-384386132",
+      "title": "Mensagens desconexas e irrelevantes"
+    },
+    {
+      "name": "Gaspar Mahatma",
+      "score": 0,
+      "linkedinUrl": "https://www.linkedin.com/in/gaspar-mahatma",
+      "title": "Mensagens desconexas"
+    },
+    {
+      "name": "Luiz Guilherme Risse de Carvalho",
+      "score": 0,
+      "linkedinUrl": "https://www.linkedin.com/in/luiz-guilherme-risse-de-carvalho-91631b196",
+      "title": "Mensagens desconexas"
+    },
+    {
+      "name": "Luiz Felipe Lampa Risse",
+      "score": 0,
+      "linkedinUrl": "https://www.linkedin.com/in/luiz-risse",
+      "title": "Mensagens não profissionais"
+    },
+    {
+      "name": "Ronaldo Eleotério",
+      "score": 10,
+      "linkedinUrl": "https://www.linkedin.com/in/rjceleoterio",
+      "title": "Mensagens informais e irrelevantes"
+    }
+  ]
+}

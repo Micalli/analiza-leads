@@ -1,6 +1,7 @@
 type LeadSimpleAnalysis = {
   name: string;
-  classification: string;
+  score: string;
+  title: string;
 };
 
 type LeadAnalysis = {
