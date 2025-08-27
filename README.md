@@ -15,8 +15,11 @@ O serviço utiliza a **Gemini AI** da Google para analisar o conteúdo das mensa
 ## Tecnologias
 
 - Node.js
+- React
 - Express
 - TypeScript
+- React query
+- React Router
 - XLSX (para leitura de planilhas Excel)
 - Gemini AI (`@google/generative-ai`)
 
@@ -31,15 +34,36 @@ git clone https://github.com/Micalli/analiza-leads.git
 
 cd analyze-leads-gemini
 ```
+### Back end
+
 ## Instale as dependências:
 
 ```bash
+cd api/
 npm install
 ```
 
 ## Variável de ambiente:
 ```bash
 GEMINI_API_KEY=YOUR_API_KEY
+```
+## Rodando o servidor
+
+```bash
+npm run dev
+```
+### Front end
+
+## Instale as dependências:
+
+```bash
+cd fe/
+npm install
+```
+
+## Variável de ambiente:
+```bash
+VITE_API_URL=YOUR_API_URL
 ```
 ## Rodando o servidor
 
