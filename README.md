@@ -5,7 +5,7 @@
 Este projeto é um serviço backend em **Node.js/Express** que permite:
 
 - Ler uma planilha Excel contendo mensagens enviadas via LinkedIn.
-- Classificar automaticamente cada mensagem como **Sem Interesse**, **Lead Frio** ou **Oportunidade de Negócio**.
+- Classificar automaticamente cada mensagem como **Cold Lead**, **Warn Lead** ou **Hot Lead**.
 - Retornar os resultados em formato JSON com o **ID da conversa**, **nome do contato** e **classificação**.
 
 O serviço utiliza a **Gemini AI** da Google para analisar o conteúdo das mensagens e determinar a classificação do lead.
