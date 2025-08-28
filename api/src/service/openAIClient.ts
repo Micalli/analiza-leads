@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { GroupChatI } from "../types";
 import { formatCurrency } from "../utils/formatCurrency";
+
 const prompt = `
 Você é um especialista em análise de leads e mensagens(em inglês e portugues) comerciais no LinkedIn.
 Sua tarefa é analisar os contatos abaixo e atribuir a cada um um score de 0 a 100, representando o nível de interesse ou potencial de negócio:
@@ -42,11 +43,10 @@ Você receberá um array JSON onde cada item representa uma pessoa com suas mens
 
 export async function getAnalyseFromLeadMessages(messages: GroupChatI[]) {
   try {
-
     const client = new OpenAI();
     console.log("🤖 Analisando mensagens...");
     const response = await client.chat.completions.create({
-      model: "gpt-4.1-mini",
+      model: "gpt-4.1-mini", // Modelo, pode alterar. "gpt-4.1-nano" | "gpt-4o" |  "gpt-4.1" |  "gpt-4-turbo"
       messages: [
         {
           role: "system",
@@ -69,24 +69,31 @@ export async function getAnalyseFromLeadMessages(messages: GroupChatI[]) {
     if (!json) {
       throw new Error("Failed to process meal.");
     }
+    let totalCostBatch;
 
     if (response.usage) {
       console.log("🪙  Tokens prompt: ", response.usage.prompt_tokens);
       console.log("🪙  Tokens resposta: ", response.usage.completion_tokens);
       console.log("🪙  Tokens total: ", response.usage.total_tokens);
 
-      console.log(
-        "💲 Custos aproximado ≅ ",
-        calculateGpt4MiniCost(
-          response.usage.prompt_tokens,
-          response.usage.completion_tokens
-        )
+      const { totalCost, costInput, responseCost } = calculateGpt4MiniCost(
+        response.usage.prompt_tokens,
+        response.usage.completion_tokens
       );
+      totalCostBatch = totalCost;
+      console.log(`💲 Custos desse batch aproximado ≅ 
+          Custo do Input: ${costInput}
+          Custo da Resposta: ${responseCost}
+          Custo do Total:${formatCurrency(totalCost)}
+        `);
     }
 
-    return JSON.parse(json);
+    return {
+      totalCostBatch,
+      json: JSON.parse(json),
+    };
   } catch (error) {
-    return "Erro ao processar resposta.";
+    return { error: (error as Error).message || "Erro ao processar resposta." };
   }
 }
 
@@ -98,8 +105,8 @@ function calculateGpt4MiniCost(inputTokens: number, outputTokens: number) {
   const outputCost = outputTokens * outputCostPerToken;
 
   return {
-    custoDeEntrada: formatCurrency(inputCost),
-    custoDeResposta: formatCurrency(outputCost),
-    custoTotal: formatCurrency(inputCost + outputCost),
+    costInput: formatCurrency(inputCost),
+    responseCost: formatCurrency(outputCost),
+    totalCost: inputCost + outputCost,
   };
 }
