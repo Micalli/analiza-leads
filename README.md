@@ -45,7 +45,7 @@ npm install
 
 ## Variável de ambiente:
 ```bash
-GEMINI_API_KEY=YOUR_API_KEY
+OPENAI_API_KEY=YOUR_API_KEY
 ```
 ## Rodando o servidor
 
