@@ -16,52 +16,13 @@ export async function uploadFile(req: Request, res: Response) {
     }
     await validateFormatFile(req.file);
     const { analyzeName } = req.body;
-    console.log("🚀 ~ uploadFile ~ analyzeName:", analyzeName)
+    console.log("🚀 ~ uploadFile ~ analyzeName:", analyzeName);
 
     const filePath = req.file.path;
     const csvContent = await fs.promises.readFile(filePath, "utf8");
 
-    // const workbook = XLSX.read(csvContent, { type: "string" });
-    // const sheetName = workbook.SheetNames[0];
-    // const worksheet = workbook.Sheets[sheetName];
-    // const data = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-    // console.log(`📈 Parse de ${data.length} linhas.`);
-
-    // const chats: ChatsI[] = (data as any[])
-    //   .filter((item) => {
-    //     return ![
-    //       "LinkedIn Member",
-    //       "LinkedIn Talent Solutions",
-    //       "Sponsored Conversation",
-    //       "Pedro Esquerdo",
-    //     ].includes(item.FROM);
-    //   })
-    //   .map((row) => ({
-    //     id: row["CONVERSATION ID"],
-    //     nome: row["FROM"],
-    //     mensagem: clearMessage(row["CONTENT"]),
-    //     linkedinUrl:
-    //       row["RECIPIENT PROFILE URLS"] ===
-    //       "https://www.linkedin.com/in/pedro-esquerdo"
-    //         ? row["SENDER PROFILE URL"]
-    //         : row["RECIPIENT PROFILE URLS"],
-    //   }));
-
-    // const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
-    //   if (!acc[msg.nome]) {
-    //     acc[msg.nome] = {
-    //       name: msg.nome,
-    //       linkedinUrl: msg.linkedinUrl,
-    //       messages: [],
-    //     };
-    //   }
-
-    //   acc[msg.nome].messages.push({ message: msg.mensagem });
-
-    //   return acc;
-    // }, {});
     const groupChat = await parseFileToJson(csvContent);
-    
+
     const result = await getAnalyseFromLeadMessages(groupChat);
 
     const analyseId = uuidv4();
@@ -97,12 +58,12 @@ async function parseFileToJson(csvContent: string): Promise<GroupChatI[]> {
         "LinkedIn Member",
         "LinkedIn Talent Solutions",
         "Sponsored Conversation",
-        "Pedro Esquerdo",
       ].includes(item.FROM);
     })
     .map((row) => ({
       id: row["CONVERSATION ID"],
       nome: row["FROM"],
+      to: row["TO"],
       mensagem: clearMessage(row["CONTENT"]),
       linkedinUrl:
         row["RECIPIENT PROFILE URLS"] ===
@@ -112,19 +73,26 @@ async function parseFileToJson(csvContent: string): Promise<GroupChatI[]> {
     }));
 
   const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
-    if (!acc[msg.nome]) {
-      acc[msg.nome] = {
-        name: msg.nome,
+    const isPedroSender = msg.nome === "Pedro Esquerdo";
+    if (!acc[msg.id]) {
+      acc[msg.id] = {
+        id: msg.id,
+        name: isPedroSender ? msg.to : msg.nome,
         linkedinUrl: msg.linkedinUrl,
         messages: [],
       };
     }
 
-    acc[msg.nome].messages.push({ message: msg.mensagem });
+    acc[msg.id].messages.push({
+      content: msg.mensagem,
+      from: isPedroSender ? "Pedro" : msg.nome.split(" ")[0],
+    });
 
     return acc;
   }, {});
+
   const groupChat: GroupChatI[] = Object.values(agrupadoMap);
+ 
 
   return groupChat;
 }

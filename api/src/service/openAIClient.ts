@@ -6,8 +6,8 @@ Você é um especialista em análise de leads e mensagens(em inglês e portugues
 Sua tarefa é analisar os contatos abaixo e atribuir a cada um um score de 0 a 100, representando o nível de interesse ou potencial de negócio:
 
 - 0 a 30 → Frio (baixa chance de negócio).
-- 31 a 70 → Morno (interesse moderado ou pouco claro).
-- 71 a 100 → Quente (alto interesse, intenção de avançar).
+- 31 a 60 → Morno (interesse moderado ou pouco claro).
+- 61 a 100 → Quente (alto interesse, intenção de avançar).
 - Um título curto e objetivo (máximo 6 palavras) que resuma o tema principal da conversa.
 
 ### Dados de entrada
