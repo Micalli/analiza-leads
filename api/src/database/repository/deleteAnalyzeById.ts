@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { ANALYSES_FOLDER } from '../../config/constrants';
 
-const ANALYSES_FOLDER = path.join(__dirname, "../analysis"); //
 
 export async function deleteAnalyseById(id: string): Promise<boolean> {
   try {

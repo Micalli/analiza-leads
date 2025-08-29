@@ -8,8 +8,13 @@ import { validateFormatFile } from "../utils/validateFormatFile";
 import { saveAnalysisToFile } from "../database/repository/saveToFile";
 import { getAnalyseFromLeadMessages } from "../service/openAIClient";
 import fs from "fs";
-import { delay } from '../utils/delay';
-import { formatCurrency } from '../utils/formatCurrency';
+import { delay } from "../utils/delay";
+import { formatCurrency } from "../utils/formatCurrency";
+
+  const user = {
+    name: "Pedro Esquerdo",
+    linkedinUrl: "https://www.linkedin.com/in/pedro-esquerdo",
+  };
 
 export async function uploadFile(req: Request, res: Response) {
   try {
@@ -18,15 +23,15 @@ export async function uploadFile(req: Request, res: Response) {
     }
     await validateFormatFile(req.file);
     const { analyzeName } = req.body;
-    console.log("🚀 ~ uploadFile ~ analyzeName:", analyzeName);
+  
 
     const filePath = req.file.path;
     const csvContent = await fs.promises.readFile(filePath, "utf8");
 
     const groupChat = await parseFileToJson(csvContent);
-    console.log("🚀 ~ uploadFile ~ groupChat:", groupChat.length);
 
     const batchSize = 500; // tamanho de cada batch, pode ajustar ou usar função dinâmica getBatchSize(groupChat.length)
+ 
     const batches = chunkArray(groupChat, batchSize);
     console.log("Tamanho do Batch: ", batches.length);
 
@@ -67,7 +72,7 @@ export async function uploadFile(req: Request, res: Response) {
     };
 
     await saveAnalysisToFile(analyseId, newAnalysis);
-    return res.status(201).json(groupChat);
+    return res.status(201).json(allResults);
   } catch (err) {
     console.error("Erro ao processar arquivo:", err);
     return res
@@ -97,29 +102,44 @@ async function parseFileToJson(csvContent: string): Promise<GroupChatI[]> {
       id: row["CONVERSATION ID"],
       nome: row["FROM"],
       to: row["TO"],
-      mensagem: clearMessage(row["CONTENT"]),
+      message: clearMessage(row["CONTENT"]),
+      dateAt: new Date(row["DATE"].replace(/\s*UTC$/, "")).toISOString(),
       linkedinUrl:
         row["RECIPIENT PROFILE URLS"] ===
-        "https://www.linkedin.com/in/pedro-esquerdo"
+        user.linkedinUrl
           ? row["SENDER PROFILE URL"]
           : row["RECIPIENT PROFILE URLS"],
-    }));
+    }))
+    .sort(
+      (a, b) => new Date(b.dateAt).getTime() - new Date(a.dateAt).getTime()
+    );
+  console.log("🚀 ~ parseFileToJson ~ chats:", chats);
 
   const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
-    const isPedroSender = msg.nome === "Pedro Esquerdo";
+    const isPedroSender = msg.nome === user.name;
     if (!acc[msg.id]) {
       acc[msg.id] = {
         id: msg.id,
         name: isPedroSender ? msg.to : msg.nome,
         linkedinUrl: msg.linkedinUrl,
+        lastMessageDate: "",
+        lastSender: "",
         messages: [],
       };
     }
 
     acc[msg.id].messages.push({
-      content: msg.mensagem,
+      content: msg.message,
       from: isPedroSender ? "Pedro" : msg.nome.split(" ")[0],
+      dateAt: msg.dateAt,
     });
+
+    const lastMsg = acc[msg.id].messages.reduce((latest, current) =>
+      new Date(current.dateAt) > new Date(latest.dateAt) ? current : latest
+    );
+
+    acc[msg.id].lastMessageDate = lastMsg.dateAt;
+    acc[msg.id].lastSender = lastMsg.from;
 
     return acc;
   }, {});

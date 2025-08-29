@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-const ANALYSES_FOLDER = path.join(__dirname, "../analysis"); // ajuste o caminho
+const ANALYSES_FOLDER = path.join(__dirname, "../analysis"); 
 
 export async function getAllAnalyses() {
   try {
@@ -18,6 +18,11 @@ export async function getAllAnalyses() {
         const data = await fs.readFile(filePath, "utf-8");
         return JSON.parse(data);
       })
+    );
+
+    analyses.sort(
+      (a, b) =>
+        new Date(b.analyzedAt).getTime() - new Date(a.analyzedAt).getTime()
     );
 
     return analyses;

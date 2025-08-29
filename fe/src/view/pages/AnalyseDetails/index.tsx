@@ -4,14 +4,10 @@ import { Spinner } from "../../../components/ui/Spinner";
 import { formatDate } from "../../../utils/formatDate";
 import { Button } from "../../../components/ui/Button";
 import { useEffect } from "react";
-
-interface LeadClassification {
-  name: string;
-  classification: "Hot Lead" | "Warm Lead" | "Cold Lead";
-  score: number;
-  title: string;
-  linkedinUrl: string;
-}
+import { CustomDropdown } from "../../../components/ui/DropdownMenu";
+import { SuggestedMessageModal } from "../../modals/SuggestedMessageModal";
+import type { LeadClassification } from "../../../types";
+import { adjustDateMinus3Hours } from '../../../utils/adjustDateMinus3Hours';
 
 const optionsFilter = [
   {
@@ -39,6 +35,10 @@ export function AnalyseDetais() {
     handleBackToHistory,
     filterTypeLead,
     handleChangeFilterTypeLead,
+    suggestedMessage,
+    closeSuggestedMessageModal,
+    handleOpenSugestedModal,
+    isSuggestedMessageModalOpen,
   } = useAnalyseDetailsController();
 
   const filterBy = data?.analysis.filter((analyse) => {
@@ -59,7 +59,7 @@ export function AnalyseDetais() {
   useEffect(() => {}, [filterTypeLead]);
   return (
     <div className="min-h-screen bg-background pt-24 px-4">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-8xl">
         {data && data.analysis.length > 0 && filterBy && !isLoading && (
           <>
             {/* Header da página */}
@@ -133,9 +133,9 @@ export function AnalyseDetais() {
                     Resultado da análise automática realizada pelo sistema
                   </p>
                 </div>
-                <div className='sm:mt-0 mt-6'>
+                <div className="sm:mt-0 mt-6">
                   <select
-                    value={filterTypeLead} // <- controla pelo estado
+                    value={filterTypeLead}
                     onChange={(e) => handleChangeFilterTypeLead(e.target.value)}
                     className="cursor-pointer w-full px-3 py-2 bg-background border border-gray-600 rounded-md text-white text-sm font-medium 
              focus:outline-none focus:ring-2 focus:ring-primary transition-colors
@@ -167,6 +167,15 @@ export function AnalyseDetais() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                         Score
                       </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        Dono da ultima mensagem
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        Data da ultima mensagem
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                        Açoes
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
@@ -177,9 +186,14 @@ export function AnalyseDetais() {
                       >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-white">
-                            <a href={lead.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                            <a
+                              href={lead.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline"
+                            >
                               {lead.name}
-                              </a>
+                            </a>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -188,6 +202,37 @@ export function AnalyseDetais() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <LeadBadge score={lead.score} />
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          {lead.lastSender}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          {formatDate(
+                            adjustDateMinus3Hours(lead.lastMessageDate)
+                          )}
+                        </td>
+
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button>
+                            <CustomDropdown
+                              triggerLabel="Options"
+                              options={[
+                                {
+                                  label: "Ver perfil",
+                                  onClick: () =>
+                                    window.open(lead.linkedinUrl, "_blank"),
+                                },
+                                {
+                                  onClick: () => {
+                                    handleOpenSugestedModal(
+                                      lead.suggestedMessage
+                                    );
+                                  },
+                                  label: "Ver mensagem sugerida",
+                                },
+                              ]}
+                            />
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -195,7 +240,6 @@ export function AnalyseDetais() {
               </div>
             </div>
 
-            {/* Ações */}
             <div className="mt-8 flex  justify-center mb-4">
               <Button
                 onClick={handleBackToHistory}
@@ -207,6 +251,11 @@ export function AnalyseDetais() {
             </div>
           </>
         )}
+        <SuggestedMessageModal
+          suggestedMessage={suggestedMessage}
+          onClose={closeSuggestedMessageModal}
+          isOpen={isSuggestedMessageModalOpen}
+        />
 
         {isLoading && (
           <div className="flex justify-center h-96 items-center  ">

@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Router } from "./router";
+import { PageProvider } from "./view/context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +15,9 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <PageProvider>
+        <Router />
+      </PageProvider>
     </QueryClientProvider>
   );
 }

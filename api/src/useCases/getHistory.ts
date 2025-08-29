@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
-import { leadStore } from "../store/analysisLead";
 import { getAllAnalyses } from '../database/repository/getAllAnalyses';
 
 export async function getHistory(req: Request, res: Response) {
   try {
-    // const history = Array.from(leadStore.values()); // transforma Map em array
     const history = await getAllAnalyses();
     return res.json(history);
   } catch (err) {

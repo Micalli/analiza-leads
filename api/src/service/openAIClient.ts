@@ -3,42 +3,37 @@ import { GroupChatI } from "../types";
 import { formatCurrency } from "../utils/formatCurrency";
 
 const prompt = `
-Você é um especialista em análise de leads e mensagens(em inglês e portugues) comerciais no LinkedIn.
-Sua tarefa é analisar os contatos abaixo e atribuir a cada um um score de 0 a 100, representando o nível de interesse ou potencial de negócio:
+Você é um especialista em análise de leads e mensagens (em inglês e português) comerciais no LinkedIn.  
+Sua tarefa é analisar os contatos abaixo e atribuir a cada um:
 
-- 0 a 30 → Frio (baixa chance de negócio).
-- 31 a 60 → Morno (interesse moderado ou pouco claro).
-- 61 a 100 → Quente (alto interesse, intenção de avançar).
-- Um título curto e objetivo (máximo 6 palavras) que resuma o tema principal da conversa.
+- um **score** de 0 a 100, representando o nível de interesse ou potencial de negócio:
+  - 0 a 30 → Frio (baixa chance de negócio).  
+  - 31 a 60 → Morno (interesse moderado ou pouco claro).  
+  - 61 a 100 → Quente (alto interesse, intenção de avançar).  
+- um **título curto e objetivo** (máximo 6 palavras) que resuma o tema principal da conversa.  
+- uma **mensagem sugerida** (atributo suggestedMessage) apenas para leads quentes (score > 60); para os demais, o valor deve ser string vazia.  
 
-### Dados de entrada
+Você receberá um array JSON onde cada item representa uma pessoa com suas mensagens agrupadas, incluindo o nome do remetente de cada mensagem.
 
-Você receberá um array JSON onde cada item representa uma pessoa com suas mensagens agrupadas.
+ ### Sobre a empresa  
+ [INSERIR AQUI uma breve descrição da empresa e o momento atual do negócio]
 
 ### Instruções obrigatórias
 
-- Analise todas as mensagens de cada pessoa em conjunto antes de definir o score.
-- Cada pessoa deve receber apenas um score numérico entre 0 e 100.
-- Gere também um **título resumido (máximo 6 palavras)** para a conversa.  
+- Analise todas as mensagens de cada pessoa em conjunto antes de definir o score.  
+- Cada pessoa deve receber apenas um score numérico entre 0 e 100.  
 - Retorne um único array JSON válido, onde cada elemento siga este formato:
+
 {
   "name": "valor_nome",
-  "score": 0-100
+  "score": 0-100,
   "linkedinUrl": "url_perfil_linkedin",
-  "title": "Resumo curto da conversa"
+  "title": "Resumo curto da conversa",
+  "suggestedMessage": "Mensagem sugerida || "",
+  "lastMessageDate": [lastMessageDate],
+  "lastSender": [lastSender],
 }
-- Não inclua blocos de código, markdown, comentários ou explicações adicionais.
-- A saída deve ser sempre um JSON estritamente válido.
 
-### Modelo de saída (exemplo de formato, não copie os dados):
-[
-  {
-    "name": "NOME_DO_CONTATO",
-    "score": 85,
-    "linkedinUrl": "URL_DO_PERFIL_LINKEDIN",
-    "title": "Pedido de proposta comercial"
-  }
-]
 `;
 
 export async function getAnalyseFromLeadMessages(messages: GroupChatI[]) {

@@ -10,5 +10,7 @@ export interface LeadClassification {
   score: number;
   title: string;
   linkedinUrl: string;
-  classification: "Hot Lead" | "Warm Lead" | "Cold Lead";
+  suggestedMessage: string;
+  lastMessageDate: string;
+  lastSender: string;
 }

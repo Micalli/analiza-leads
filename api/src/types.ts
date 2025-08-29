@@ -3,12 +3,19 @@ export interface ChatsI {
   nome: string;
   to: string;
   linkedinUrl: string;
-  mensagem: string;
+  message: string;
+  dateAt: string | Date;
 }
 
 export interface GroupChatI {
   id: string;
   name: string;
   linkedinUrl: string;
-  messages: {  content: string; from: string }[];
+  lastMessageDate: string | Date;
+  lastSender: string
+  messages: {
+    content: string;
+    from: string;
+    dateAt: string | Date;
+  }[];
 }

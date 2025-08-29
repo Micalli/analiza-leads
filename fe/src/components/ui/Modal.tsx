@@ -35,7 +35,7 @@ export function Modal({
         >
           <header className="h-12 flex items-center justify-between text-white">
             <button
-              className="h-12 w-12 flex items-center justify-center outline-none cursor-pointer"
+              className="h-12 w-12 flex items-center justify-center outline-none cursor-pointer hover:bg-gray-600/20 rounded-lg transition"
               onClick={onClose}
             >
               <X className="w-6 h-6" />
