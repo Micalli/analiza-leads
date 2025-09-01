@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export function useAnalyseDetailsController() {
   const { analyseId } = useParams();
   const [filterTypeLead, setFilterTypeLead] = useState<string>("");
-  const { analyse, isLoading } = useAnalysisById(analyseId);
+  const { analyse, isLoading, isError } = useAnalysisById(analyseId);
   const navigate = useNavigate();
   const {
     closeSuggestedMessageModal,
@@ -44,5 +44,6 @@ export function useAnalyseDetailsController() {
     openSuggestedMessageModal,
     suggestedMessage,
     handleOpenSugestedModal,
+    isError,
   };
 }

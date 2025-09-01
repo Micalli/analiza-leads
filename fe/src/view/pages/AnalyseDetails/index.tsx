@@ -39,7 +39,9 @@ export function AnalyseDetais() {
     closeSuggestedMessageModal,
     handleOpenSugestedModal,
     isSuggestedMessageModalOpen,
+    isError
   } = useAnalyseDetailsController();
+    console.log("🚀 ~ AnalyseDetais ~ isError:", isError)
 
   const filterBy = data?.analysis.filter((analyse) => {
     if (!filterTypeLead) return true; // se não tiver filtro, retorna todos
@@ -250,6 +252,17 @@ export function AnalyseDetais() {
               </Button>
             </div>
           </>
+        )}
+        {isError && (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-6xl mb-4">📁</div>
+            <h3 className="text-xl font-medium text-gray-300 mb-2">
+              Análise encontrada
+            </h3>
+            <p className="text-gray-500">
+              A análise que você está tentando acessar não existe ou ocorreu um erro
+            </p>
+          </div>
         )}
         <SuggestedMessageModal
           suggestedMessage={suggestedMessage}

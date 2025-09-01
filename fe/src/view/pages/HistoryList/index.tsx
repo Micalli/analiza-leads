@@ -71,7 +71,7 @@ const HistoryList = () => {
           {isLoading && <HistorySkeleton />}
         </div>
 
-        {analysisHistory.length === 0 && (
+        {analysisHistory.length === 0 && !isLoading && (
           <div className="text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">📁</div>
             <h3 className="text-xl font-medium text-gray-300 mb-2">

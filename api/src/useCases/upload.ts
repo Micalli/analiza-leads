@@ -30,7 +30,7 @@ export async function uploadFile(req: Request, res: Response) {
 
     const groupChat = await parseFileToJson(csvContent);
 
-    const batchSize = 500; // tamanho de cada batch, pode ajustar ou usar função dinâmica getBatchSize(groupChat.length)
+    const batchSize = getBatchSize(groupChat.length); // tamanho de cada batch, pode ajustar ou usar função dinâmica getBatchSize(groupChat.length)
  
     const batches = chunkArray(groupChat, batchSize);
     console.log("Tamanho do Batch: ", batches.length);
@@ -113,7 +113,6 @@ async function parseFileToJson(csvContent: string): Promise<GroupChatI[]> {
     .sort(
       (a, b) => new Date(b.dateAt).getTime() - new Date(a.dateAt).getTime()
     );
-  console.log("🚀 ~ parseFileToJson ~ chats:", chats);
 
   const agrupadoMap = chats.reduce<Record<string, GroupChatI>>((acc, msg) => {
     const isPedroSender = msg.nome === user.name;
