@@ -1,4 +1,4 @@
-# Análise de Leads do LinkedIn com Node.js e Gemini AI
+# Análise de Leads do LinkedIn com Node.js OpenAI
 
 ## Descrição
 
@@ -21,7 +21,7 @@ O serviço utiliza a **Gemini AI** da Google para analisar o conteúdo das mensa
 - React query
 - React Router
 - XLSX (para leitura de planilhas Excel)
-- Gemini AI (`@google/generative-ai`)
+- OpenAI (`openai`)
 
 ---
 
